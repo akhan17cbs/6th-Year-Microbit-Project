@@ -36,7 +36,10 @@ myfireb_connect.on("child_added", function(data, prevChildKey) {
 // Display LED
 function addCommand(){
   var trafficLight = document.getElementById("commandIn").value;
-  var time = document.getElementById("timeIn").value;
+  var today = new Date();
+  var date = today.getFullYear() + '' + (today.getMonth()+1) + '' + today.getDate();
+  var time = today.getHours() + '' + today.getMinutes() + '' + today.getSeconds();
+  var dateTime = date + '' + time;
 
   var rootRef = firebase.database().ref();
   var storesRef = rootRef.child('/Commands/command/');
@@ -44,7 +47,7 @@ function addCommand(){
   newStoreRef.set(
     {
       command: trafficLight,
-      Timestamp: time
+      Timestamp: dateTime
     }
   );
   alert("Command sent...");
