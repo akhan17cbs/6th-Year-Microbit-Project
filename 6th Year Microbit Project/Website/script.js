@@ -12,27 +12,6 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-// Display Temperature
-var myTemp = [];
-var myfireb_connect = firebase.database().ref('/temperature/temp');
-
-myfireb_connect.on("child_added", function(data, prevChildKey) {
-  
-  var dataPoint = data.val();
-  myTemp.push(dataPoint.temp);
-  var totalT = 0;
-  var i = 0;
-  
-  for(i = 0; i < myTemp.length; i++){
-    totalT += myTemp[i];
-  }
-  
-  var avg = totalT / myTemp.length;
-  
-  document.getElementById("avgL").innerHTML = avg;
-  document.getElementById("liveL").innerHTML = myTemp[myTemp.length-1];
-});
-
 // Display LED
 function addCommand(){
   var trafficLight = document.getElementById("commandIn").value;
@@ -52,3 +31,24 @@ function addCommand(){
   );
   alert("Command sent...");
 }
+
+// Display Temperature
+var myTemp = [];
+var myfireb_connect = firebase.database().ref('/temperature/temp');
+
+myfireb_connect.on("child_added", function(data, prevChildKey) {
+  
+  var dataPoint = data.val();
+  myTemp.push(dataPoint.Temp);
+  var totalT = 0;
+  var i = 0;
+  
+  for(i = 0; i < myTemp.length; i++){
+    totalT += myTemp[i];
+  }
+  
+  var avg = totalT / myTemp.length;
+  
+  document.getElementById("avgL").innerHTML = avg;
+  document.getElementById("liveL").innerHTML = myTemp[myTemp.length - 1];
+});
